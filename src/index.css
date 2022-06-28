@@ -1,3 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
+}
+
+/* section의 가운데 정렬을 위한 root div의 css세팅 */
+#root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: burlywood;
 }

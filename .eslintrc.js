@@ -15,5 +15,7 @@ module.exports = {
   ],
   rules: {
     // 개별 규칙
+    'no-unused-vars': 'off',
+    'no-console': 'off',
   },
 }
