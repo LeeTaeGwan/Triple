@@ -1,5 +1,17 @@
+import React, { useState, useEffect, useRef } from 'react'
 import './App.css'
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+`
 
 const Container = styled.div`
   width: 100%;
@@ -27,11 +39,18 @@ const LeftImgBox = styled.div`
   font-size: 15px;
   color: rgba(58, 58, 58, 0.7);
   text-align: center;
+  animation-name: ${fadeIn};
+  animation-duration: 700ms;
+  animation-timing-function: ease-in-out;
 `
 
 const CustomerStatisticsBox = styled.div`
   margin-left: 623px;
   padding-top: 150px;
+  animation-name: ${fadeIn};
+  animation-duration: 700ms;
+  animation-timing-function: ease-in-out;
+  animation-delay: 200ms;
 `
 
 const CustomerStatus = styled.div`
@@ -47,6 +66,10 @@ const CustomerStatus = styled.div`
 const AwardsBox = styled.div`
   margin: 50px 0px 140px 623px;
   white-space: nowrap;
+  animation-name: ${fadeIn};
+  animation-duration: 700ms;
+  animation-timing-function: ease-in-out;
+  animation-delay: 400ms;
 `
 
 const AwardItem = styled.div`
@@ -89,6 +112,7 @@ function App() {
             의 여행 일정
           </CustomerStatus>
         </CustomerStatisticsBox>
+
         <AwardsBox>
           <AwardItem imgURL="/img/play-store2x.png">
             2018 구글 플레이스토어
