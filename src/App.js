@@ -6,10 +6,12 @@ const fadeIn = keyframes`
   0% {
     opacity: 0;
     transform: translateY(10px);
+    visibility: hidden;
   }
   100% {
     opacity: 1;
     transform: translateY(0%);
+    visibility: visible;
   }
 `
 
@@ -47,10 +49,12 @@ const LeftImgBox = styled.div`
 const CustomerStatisticsBox = styled.div`
   margin-left: 623px;
   padding-top: 150px;
+  visibility: hidden;
   animation-name: ${fadeIn};
   animation-duration: 700ms;
   animation-timing-function: ease-in-out;
-  animation-delay: 200ms;
+  animation-delay: 300ms;
+  animation-fill-mode: forwards;
 `
 
 const CustomerStatus = styled.div`
@@ -66,10 +70,12 @@ const CustomerStatus = styled.div`
 const AwardsBox = styled.div`
   margin: 50px 0px 140px 623px;
   white-space: nowrap;
+  visibility: hidden;
   animation-name: ${fadeIn};
   animation-duration: 700ms;
   animation-timing-function: ease-in-out;
-  animation-delay: 400ms;
+  animation-delay: 500ms;
+  animation-fill-mode: forwards;
 `
 
 const AwardItem = styled.div`
@@ -88,6 +94,46 @@ const AwardItem = styled.div`
 `
 
 function App() {
+  const [count, setCount] = useState(0)
+
+  const ref = useRef(0)
+
+  useEffect(() => {
+    // 0  ~ 79   80 10ms   800
+    // 80 ~ 89   10 40ms   400
+    // 90 ~ 97   8  50ms   400
+    // 98 ~ 100  2  200ms  400
+    if (count < 80) {
+      setTimeout(() => {
+        ref.current += 10
+        setCount(count + 1)
+      }, 10)
+    }
+    if (count >= 80 && count < 90) {
+      setTimeout(() => {
+        ref.current += 40
+        setCount(count + 1)
+      }, 40)
+    }
+    if (count >= 90 && count < 98) {
+      setTimeout(() => {
+        ref.current += 50
+        setCount(count + 1)
+      }, 50)
+    }
+    if (count >= 98) {
+      const timer = setTimeout(() => {
+        ref.current += 200
+        setCount(count + 1)
+      }, 200)
+
+      if (count === 100) {
+        console.log(ref.current) // 2000나옴
+        return clearTimeout(timer)
+      }
+    }
+  }, [count])
+
   return (
     <Container>
       <Section>
@@ -101,7 +147,7 @@ function App() {
           </CustomerStatus>
           <CustomerStatus>
             <strong>
-              <span>100</span>만 개
+              <span>{count}</span>만 개
             </strong>
             의 여행 리뷰
           </CustomerStatus>
