@@ -99,37 +99,6 @@ function App() {
   const [count, setCount] = useState(0)
   const [count1, setCount1] = useState(0)
 
-  // useEffect(() => {
-  //   // 0  ~ 79   80 10ms   800  80%
-  //   // 80 ~ 89   10 40ms   400  10%
-  //   // 90 ~ 97   8  50ms   400  8%
-  //   // 98 ~ 100  2  200ms  400  2%
-  //   if (count1 < 80) {
-  //     setTimeout(() => {
-  //       setCount1(count1 + 1)
-  //     }, 10)
-  //   }
-  //   if (count1 >= 80 && count1 < 90) {
-  //     setTimeout(() => {
-  //       setCount1(count1 + 1)
-  //     }, 40)
-  //   }
-  //   if (count1 >= 90 && count1 < 98) {
-  //     setTimeout(() => {
-  //       setCount1(count1 + 1)
-  //     }, 50)
-  //   }
-  //   if (count1 >= 98) {
-  //     const timer = setTimeout(() => {
-  //       setCount1(count1 + 1)
-  //     }, 200)
-
-  //     if (count1 === 100) {
-  //       return clearTimeout(timer)
-  //     }
-  //   }
-  // }, [count1])
-
   return (
     <Container>
       <Section>
@@ -145,7 +114,7 @@ function App() {
             </strong>
             의 여행자
           </CustomerItem>
-          <CustomerItem>
+          {/* <CustomerItem>
             <strong>
               <span>
                 <CountUp end={100} />
@@ -153,8 +122,8 @@ function App() {
               만 개
             </strong>
             의 여행 리뷰
-          </CustomerItem>
-          <CustomerItem>
+          </CustomerItem> */}
+          {/* <CustomerItem>
             <strong>
               <span>
                 <CountUp end={470} />
@@ -162,7 +131,7 @@ function App() {
               만 개
             </strong>
             의 여행 일정
-          </CustomerItem>
+          </CustomerItem> */}
         </CustomerStatisticsBox>
 
         <AwardsBox>
