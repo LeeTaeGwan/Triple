@@ -114,7 +114,7 @@ function App() {
             </strong>
             의 여행자
           </CustomerItem>
-          {/* <CustomerItem>
+          <CustomerItem>
             <strong>
               <span>
                 <CountUp end={100} />
@@ -122,8 +122,8 @@ function App() {
               만 개
             </strong>
             의 여행 리뷰
-          </CustomerItem> */}
-          {/* <CustomerItem>
+          </CustomerItem>
+          <CustomerItem>
             <strong>
               <span>
                 <CountUp end={470} />
@@ -131,7 +131,7 @@ function App() {
               만 개
             </strong>
             의 여행 일정
-          </CustomerItem> */}
+          </CustomerItem>
         </CustomerStatisticsBox>
 
         <AwardsBox>
