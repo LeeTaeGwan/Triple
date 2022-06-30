@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import './App.css'
 import styled, { css, keyframes } from 'styled-components'
 
+import CountUp from './CountUp'
+
 const fadeIn = keyframes`
   0% {
     opacity: 0;
@@ -49,15 +51,15 @@ const LeftImgBox = styled.div`
 const CustomerStatisticsBox = styled.div`
   margin-left: 623px;
   padding-top: 150px;
-  visibility: hidden;
+  /* visibility: hidden;
   animation-name: ${fadeIn};
   animation-duration: 700ms;
   animation-timing-function: ease-in-out;
   animation-delay: 300ms;
-  animation-fill-mode: forwards;
+  animation-fill-mode: forwards; */
 `
 
-const CustomerStatus = styled.div`
+const CustomerItem = styled.div`
   width: 417px;
   height: 36px;
   color: rgb(58, 58, 58);
@@ -95,68 +97,72 @@ const AwardItem = styled.div`
 
 function App() {
   const [count, setCount] = useState(0)
+  const [count1, setCount1] = useState(0)
 
-  const ref = useRef(0)
+  // useEffect(() => {
+  //   // 0  ~ 79   80 10ms   800  80%
+  //   // 80 ~ 89   10 40ms   400  10%
+  //   // 90 ~ 97   8  50ms   400  8%
+  //   // 98 ~ 100  2  200ms  400  2%
+  //   if (count1 < 80) {
+  //     setTimeout(() => {
+  //       setCount1(count1 + 1)
+  //     }, 10)
+  //   }
+  //   if (count1 >= 80 && count1 < 90) {
+  //     setTimeout(() => {
+  //       setCount1(count1 + 1)
+  //     }, 40)
+  //   }
+  //   if (count1 >= 90 && count1 < 98) {
+  //     setTimeout(() => {
+  //       setCount1(count1 + 1)
+  //     }, 50)
+  //   }
+  //   if (count1 >= 98) {
+  //     const timer = setTimeout(() => {
+  //       setCount1(count1 + 1)
+  //     }, 200)
 
-  useEffect(() => {
-    // 0  ~ 79   80 10ms   800
-    // 80 ~ 89   10 40ms   400
-    // 90 ~ 97   8  50ms   400
-    // 98 ~ 100  2  200ms  400
-    if (count < 80) {
-      setTimeout(() => {
-        ref.current += 10
-        setCount(count + 1)
-      }, 10)
-    }
-    if (count >= 80 && count < 90) {
-      setTimeout(() => {
-        ref.current += 40
-        setCount(count + 1)
-      }, 40)
-    }
-    if (count >= 90 && count < 98) {
-      setTimeout(() => {
-        ref.current += 50
-        setCount(count + 1)
-      }, 50)
-    }
-    if (count >= 98) {
-      const timer = setTimeout(() => {
-        ref.current += 200
-        setCount(count + 1)
-      }, 200)
-
-      if (count === 100) {
-        console.log(ref.current) // 2000나옴
-        return clearTimeout(timer)
-      }
-    }
-  }, [count])
+  //     if (count1 === 100) {
+  //       return clearTimeout(timer)
+  //     }
+  //   }
+  // }, [count1])
 
   return (
     <Container>
       <Section>
         <LeftImgBox>2021년 12월 기준</LeftImgBox>
+
         <CustomerStatisticsBox>
-          <CustomerStatus>
+          <CustomerItem>
             <strong>
-              <span>700</span>만 명
+              <span>
+                <CountUp end={700} />
+              </span>
+              만 명
             </strong>
             의 여행자
-          </CustomerStatus>
-          <CustomerStatus>
+          </CustomerItem>
+          <CustomerItem>
             <strong>
-              <span>{count}</span>만 개
+              <span>
+                <CountUp end={100} />
+              </span>
+              만 개
             </strong>
             의 여행 리뷰
-          </CustomerStatus>
-          <CustomerStatus>
+          </CustomerItem>
+          <CustomerItem>
             <strong>
-              <span>470</span>만 개
+              <span>
+                <CountUp end={470} />
+              </span>
+              만 개
             </strong>
             의 여행 일정
-          </CustomerStatus>
+          </CustomerItem>
         </CustomerStatisticsBox>
 
         <AwardsBox>
