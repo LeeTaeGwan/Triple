@@ -16,7 +16,7 @@ Styled-Components를 사용한 이유는 조건부로 실행되어야 하는 애
 <br/>
 # HTML MarkUp & LayOut
 
-기본적인 HTML과 LayOut은 트리플사의 렌딩페이지를 보며 최대한 비슷하게 마크업하려 노력했습니다.
+HTML과 LayOut은 트리플사의 렌딩페이지를 보며 최대한 비슷하게 마크업하려 노력했습니다.
 <br/>
 <br/>
 <br/>
