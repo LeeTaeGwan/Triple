@@ -56,6 +56,6 @@ true로 변경된 state는 다음 요소의 스타일컴포넌트에 props로 �
 
 curFrame을 totalFrame으로 나눈값을 easeOutExpo라는 함수의 인자로 넣습니다.
 
-easeOutExpo는 https://spicyyoghurt.com/tools/easing-functions에서 가져왔습니다.
+easeOutExpo는 https://spicyyoghurt.com/tools/easing-functions 에서 가져왔습니다.
 
 easeOutExpo의 리턴값과 끝나는 값을 곱하면 frame당 변화되는 숫자를 구할 수 있습니다.
