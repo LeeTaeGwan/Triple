@@ -51,12 +51,18 @@ const LeftImgBox = styled.div`
 const CustomerStatisticsBox = styled.div`
   margin-left: 623px;
   padding-top: 150px;
-  /* visibility: hidden;
-  animation-name: ${fadeIn};
-  animation-duration: 700ms;
-  animation-timing-function: ease-in-out;
-  animation-delay: 300ms;
-  animation-fill-mode: forwards; */
+  visibility: hidden;
+  ${(props) => {
+    if (props.secondAniTrigger) {
+      return css`
+        animation-name: ${fadeIn};
+        animation-duration: 700ms;
+        animation-timing-function: ease-in-out;
+        animation-delay: 100ms;
+        animation-fill-mode: forwards;
+      `
+    }
+  }}
 `
 
 const CustomerItem = styled.div`
@@ -73,11 +79,17 @@ const AwardsBox = styled.div`
   margin: 50px 0px 140px 623px;
   white-space: nowrap;
   visibility: hidden;
-  animation-name: ${fadeIn};
-  animation-duration: 700ms;
-  animation-timing-function: ease-in-out;
-  animation-delay: 500ms;
-  animation-fill-mode: forwards;
+  ${(props) => {
+    if (props.thirdAniTrigger) {
+      return css`
+        animation-name: ${fadeIn};
+        animation-duration: 700ms;
+        animation-timing-function: ease-in-out;
+        animation-delay: 100ms;
+        animation-fill-mode: forwards;
+      `
+    }
+  }}
 `
 
 const AwardItem = styled.div`
@@ -96,15 +108,19 @@ const AwardItem = styled.div`
 `
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [count1, setCount1] = useState(0)
-
+  const [secondAniTrigger, SetsecondAniTrigger] = useState(false)
+  const [thirdAniTrigger, SetThirdAniTrigger] = useState(false)
   return (
     <Container>
       <Section>
-        <LeftImgBox>2021년 12월 기준</LeftImgBox>
+        <LeftImgBox onAnimationStart={() => SetsecondAniTrigger(true)}>
+          2021년 12월 기준
+        </LeftImgBox>
 
-        <CustomerStatisticsBox>
+        <CustomerStatisticsBox
+          onAnimationStart={() => SetThirdAniTrigger(true)}
+          secondAniTrigger={secondAniTrigger}
+        >
           <CustomerItem>
             <strong>
               <span>
@@ -134,7 +150,7 @@ function App() {
           </CustomerItem>
         </CustomerStatisticsBox>
 
-        <AwardsBox>
+        <AwardsBox thirdAniTrigger={thirdAniTrigger}>
           <AwardItem imgURL="/img/play-store2x.png">
             2018 구글 플레이스토어
             <br />
