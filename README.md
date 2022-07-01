@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# 프로젝트 실행 방법
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+최상위 경로에서 npm start를 하시면 프로젝트가 실행됩니다.
 
-## Available Scripts
+# 사용한 기술과 선택한 이유
 
-In the project directory, you can run:
+React와 Styled-Component만을 이용해서 프로젝트를 구성했습니다.
 
-### `npm start`
+Styled-Components를 사용한 이유는 조건부로 실행되어야 하는 애니메이션들은 Styled-Components를 이용해서 구현하면 편리하게 구현할 수 있다고 생각했기 때문입니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+그렇게 생각한 이유는 스타일 컴포넌트에 Props로 지금 애니메이션이 실행돼야하는지 아니면 실행하지 않아야 하는지를 Boolean값으로 넘겨서 조건문으로 애니메이션의 실행시점에 대한 분기를 간편하게 구현할 수 있기 때문입니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# HTML MarkUp & LayOut
 
-### `npm test`
+기본적인 HTML과 LayOut은 트리플사의 렌딩페이지를 보며 최대한 비슷하게 마크업하려 노력했습니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# 애니메이션 처리
 
-### `npm run build`
+## 영역별 등장 애니메이션
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+CSS를 통해 opacity와 transform 그리고 visibility속성을 이용해 영역별 등장 애니메이션을 fadeIn이라는 이름의 애니메이션으로 정의했습니다.
+App.js의 7 ~ 17번째 코드
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 영역별 등장 애니메이션의 실행시점
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+좌측 이미지 --100ms-> 지표 문구 --100ms-> 수상 내역
 
-### `npm run eject`
+한번에 애니메이션이 실행되는것이 아니라 순차적으로 애니메이션이 실행돼야하기 때문에
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+애니메이션이 실행됐는지를 초기값이 false인 Boolean값이 들어가는 state를 2개 만들었습니다.
+(secondAniTrigger, thirdAniTrigger)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+그리고 DOM API의 onAnimationStart를 이용했습니다.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+onAnimationStart는 HTML요소의 애니메이션 실행시점에 위에서 말한 state를 false에서 true로 바꾸는 콜백함수를 반환합니다.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+true로 변경된 state는 다음 요소의 스타일컴포넌트에 props로 넘겨서 조건문을 이용해
 
-## Learn More
+'props로 넘겨받은 값이 true라면 100ms후 애니메이션 실행' 이런 로직으로 애니메이션의 실행시점을 결정했습니다.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 숫자가 올라가는 애니메이션
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+숫자가 올라가는 애니메이션은 CSS의 애니메이션만으로는 구현할 수 없을것 같아서 JS코드와 Hook을 이용해 구현했습니다.
 
-### Code Splitting
+시간단위가 아닌 프레임 단위로 작업했습니다. 시간단위만으로 애니메이션을 구현하니 숫자가 커질 수록 2초를 초과해서 애니메이션이 끝났기 때문입니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1초동안 60개의 프레임이 지나갑니다. 즉 애니메이션의 지속시간인 2초 동안 120개의 프레임(totalFrame)이 지나갑니다.
 
-### Analyzing the Bundle Size
+프레임 간 속도를 (2000ms / 120)로 계산했습니다. 1초에 60프레임으로 정했기 때문에 2000 / 120입니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+현재 실행되는 프레임이 몇번째 프레임인지 알기 위해 let을 통해 curFrame이라는 변수를 만들고 setInterval이 실행될 때 마다 1을 누계시켰습니다.
 
-### Making a Progressive Web App
+curFrame을 totalFrame으로 나눈값을 easeOutExpo라는 함수의 인자로 넣습니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+easeOutExpo는 https://spicyyoghurt.com/tools/easing-functions에서 가져왔습니다.
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+easeOutExpo의 리턴값과 끝나는 값을 곱하면 frame당 변화되는 숫자를 구할 수 있습니다.

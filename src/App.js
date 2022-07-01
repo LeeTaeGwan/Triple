@@ -1,21 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react'
-import './App.css'
+import React, { useState, useEffect } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 
-import CountUp from './CountUp'
-
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-    visibility: hidden;
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0%);
-    visibility: visible;
-  }
-`
+import fadeIn from './Animation/FadeIn'
+import CountUp from './Animation/CountUp'
 
 const Container = styled.div`
   width: 100%;
